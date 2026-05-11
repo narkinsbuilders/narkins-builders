@@ -206,7 +206,7 @@ const Footer: FC<FooterProps> = ({ map }) => (
             </a>
           </div>
           <span className="text-sm text-gray-500 text-center mt-4 sm:mt-0 sm:absolute sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:w-full">
-            © 2025{" "}
+            © {new Date().getFullYear()}{" "}
             <Link href="/" className="hover:underline">
               Narkin's Builders<sup className="text-xs">™</sup>
             </Link>{" "}
