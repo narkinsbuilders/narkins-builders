@@ -182,7 +182,7 @@ async function precompileMDX() {
         if (item.isDirectory()) {
           // Recursively scan subdirectories
           scanDirectory(itemPath)
-        } else if (item.isFile() && item.name.endsWith(".mdx")) {
+        } else if (item.isFile() && item.name.endsWith(".mdx") && !item.name.startsWith(".gitkeep")) {
           results.push({
             fileName: item.name,
             fullPath: itemPath,
