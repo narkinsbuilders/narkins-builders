@@ -229,7 +229,7 @@ function getAllPostsFromFS(): BlogPost[] {
 
         const fileContents = fs.readFileSync(fullPath, "utf8")
         if (!fileContents.trim()) {
-          console.warn(`[MDX] Empty file: ${fileName}`)
+          console.warn(`[MDX] Empty file: ${fileInfo.fullPath}`)
           continue
         }
 
@@ -256,7 +256,7 @@ function getAllPostsFromFS(): BlogPost[] {
         allPostsData.push(post)
       } catch (fileError) {
         console.error(
-          `[MDX] Error processing ${fileName}:`,
+          `[MDX] Error processing ${fileInfo.fullPath}:`,
           fileError instanceof Error ? fileError.message : "Unknown error"
         )
         continue

@@ -14,6 +14,8 @@ export interface BlogPost {
   customAuthor?: string
   hideImage?: boolean
   hideExcerpt?: boolean
+  howToTitle?: string
+  howToSteps?: { name: string; text: string }[]
 }
 
 // This will be populated by getStaticProps

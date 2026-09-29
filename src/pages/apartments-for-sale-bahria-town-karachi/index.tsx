@@ -13,7 +13,7 @@ import type { BlogPost } from "@/lib/blog"
 import { getAllPostsServer } from "@/lib/blog-server"
 import { motion } from "framer-motion"
 
-interface PostWithCategory extends BlogPost {
+interface PostWithCategory extends Omit<BlogPost, "author"> {
   id: number
   link: string
   datetime: string

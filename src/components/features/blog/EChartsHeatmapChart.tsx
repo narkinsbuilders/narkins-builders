@@ -51,7 +51,7 @@ export default function EChartsHeatmapChart({
 
     // Extract unique x and y values if not provided
     if (xAxisData.length === 0) {
-      const xValues = [...new Set(processedData.map((item) => item[0]))].sort(
+      const xValues = [...new Set<number>(processedData.map((item) => item[0]))].sort(
         (a, b) => a - b
       )
       xAxis = { type: "category", data: xValues.map(String) }
@@ -60,7 +60,7 @@ export default function EChartsHeatmapChart({
     }
 
     if (yAxisData.length === 0) {
-      const yValues = [...new Set(processedData.map((item) => item[1]))].sort(
+      const yValues = [...new Set<number>(processedData.map((item) => item[1]))].sort(
         (a, b) => a - b
       )
       yAxis = { type: "category", data: yValues.map(String) }

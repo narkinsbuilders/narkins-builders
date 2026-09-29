@@ -27,7 +27,7 @@ import { getAllPostsServer } from "@/lib/blog-server"
 import SEOImage from "@/components/common/seo-image/seo-image"
 import { HillCrestResidencySchema } from "@/components/common/schema/HillCrestResidencySchema"
 
-interface PostWithCategory extends BlogPost {
+interface PostWithCategory extends Omit<BlogPost, "author"> {
   id: number
   link: string
   datetime: string
