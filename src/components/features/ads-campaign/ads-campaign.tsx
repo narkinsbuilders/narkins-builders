@@ -136,8 +136,9 @@ const AdsCampaign: React.FC<AdsCampaignProps> = ({
   }
 
   // GOOGLE SHEETS API SUBMISSION
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const hp = new FormData(event.currentTarget).get("_hp")
     setLoading(true)
     setError(false)
     setBackupStatus({ primaryForm: false, backupForm: false, localSaved: true })
@@ -151,6 +152,7 @@ const AdsCampaign: React.FC<AdsCampaignProps> = ({
       source: "website_form",
       userAgent: navigator.userAgent,
       url: window.location.href,
+      _hp: hp,
     }
 
     // Track form submission attempt
@@ -316,7 +318,14 @@ const AdsCampaign: React.FC<AdsCampaignProps> = ({
           className="space-y-4 mt-4 bg-white p-6 rounded-lg border border-gray-200 shadow-sm"
           onSubmit={handleSubmit}
         >
-          {/* Removed: Google Protection Text */}
+          <input
+            type="text"
+            name="_hp"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="absolute -left-[9999px] h-0 w-0 opacity-0"
+          />
 
           {/* Residency Selection Dropdown */}
           <div>

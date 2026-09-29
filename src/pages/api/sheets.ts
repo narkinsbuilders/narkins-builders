@@ -45,8 +45,17 @@ export default async function handler(
   }
 
   try {
-    const { name, email, phone, property, timestamp, source, userAgent, url } =
-      req.body
+    const {
+      name,
+      email,
+      phone,
+      property,
+      timestamp,
+      source,
+      userAgent,
+      url,
+      _hp,
+    } = req.body
 
     // Validate required fields
     if (!name || !email || !phone || !property) {
@@ -105,6 +114,28 @@ export default async function handler(
         values,
       },
     })
+
+    // Forward to CRM; a CRM failure must not fail the form (Sheets already saved it)
+    try {
+      const crmRes = await fetch(process.env.NARKINS_CRM_URL!, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Api-Key": process.env.NARKINS_CRM_API_KEY!,
+          Origin: "https://www.narkinsbuilders.com",
+        },
+        body: JSON.stringify({
+          name,
+          phone: String(phone).replace(/\D/g, ""), // CRM wants digits only
+          email,
+          project: property,
+          _hp: _hp ?? "", // honeypot, must stay empty for real users
+        }),
+      })
+      if (!crmRes.ok) console.error(`[CRM] ${crmRes.status}`)
+    } catch (crmError) {
+      console.error("[CRM] Failed:", crmError)
+    }
 
     // Send email notification
     try {

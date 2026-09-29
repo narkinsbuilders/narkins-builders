@@ -35,8 +35,9 @@ const LeadForm: FC<LeadFormProps> = ({ onClose }) => {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const hp = new FormData(e.currentTarget).get("_hp")
     setIsSubmitting(true)
     setSubmitMessage("")
 
@@ -50,6 +51,7 @@ const LeadForm: FC<LeadFormProps> = ({ onClose }) => {
         source: "website_form",
         userAgent: navigator.userAgent,
         url: window.location.href,
+        _hp: hp,
       }
 
       const response = await fetch("/api/sheets", {
@@ -95,6 +97,14 @@ const LeadForm: FC<LeadFormProps> = ({ onClose }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="_hp"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+      />
       <div className="space-y-12 w-full">
         <div className="border-b text-left border-neutral-200 pb-12">
           <p className="mt-1 text-sm leading-6 text-gray-600">
